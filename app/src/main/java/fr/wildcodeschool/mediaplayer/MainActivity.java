@@ -9,8 +9,9 @@ import android.view.View;
 import android.widget.SeekBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import fr.wildcodeschool.mediaplayer.player.WildOnPlayerListener;
-import fr.wildcodeschool.mediaplayer.player.WildPlayer;
+import fr.wcs.player.WildOnPlayerListener;
+import fr.wcs.player.WildPlayer;
+
 
 public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
   // Audio player
@@ -22,15 +23,16 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
   // Thread used to update the SeekBar position
   private final Handler mSeekBarHandler = new Handler();
   private Runnable mSeekBarThread;
+  private Context mContext;
 
   /**
    * Application context accessor
    * https://possiblemobile.com/2013/06/context/
    */
-  private static Context appContext;
-  public  static Context getAppContext() {
-    return appContext;
-  }
+ // private static Context appContext;
+//  public  static Context getAppContext() {
+ //   return appContext;
+ // }
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +40,10 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     setContentView(R.layout.activity_main);
 
     // Initialization of the application context
-    MainActivity.appContext = getApplicationContext();
+   mContext = getApplicationContext();
 
     // Initialization of the wild audio player
-    mPlayer = new WildPlayer(this);
+    mPlayer = new WildPlayer(mContext);
     mPlayer.init(R.string.song, new WildOnPlayerListener() {
       @Override
       public void onPrepared(MediaPlayer mp) {
